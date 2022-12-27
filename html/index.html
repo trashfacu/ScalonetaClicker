@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Scaloneta Clicker</title>
+  </head>
+  <body>
+    <main>
+      <div class="clickContainer">
+        <div id="clicker">
+          <h4>Scaloneta Clicker</h4>
+          <div class="styleInfoCopas">
+            <p>Tenes: <span id="showCounter">0</span> copas</p>
+            <p>
+              Generas: <span id="showCounterPerSecond">0</span> copas por
+              segundo
+            </p>
+          </div>
+        </div>
+        <span class="clickHere">
+          <img
+            src="../assets/click.me.png"
+            alt="Click aca para generar copas"
+            id="clickToIncrease"
+          />
+        </span>
+      </div>
+      <div id="buildingsContainer"></div>
+      <ul id="upgradeList"></ul>
+    </main>
+    <script src="../scripts/main.js" type="module"></script>
+  </body>
+</html>
