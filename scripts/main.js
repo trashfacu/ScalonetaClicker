@@ -1,4 +1,4 @@
-import { inventario, ObjetoClick } from "./inventory.js";
+import { inventario, ObjetoClick, upgrades } from "./inventory.js";
 //Formating and styling
 
 function formatCupValue(number) {
@@ -88,28 +88,12 @@ for (let i = 0; i < btnBuyBuilding.length; i++) {
   });
 }
 
-// //Test Upgrades
-// const upgrades = [
-//   {
-//     name: "Upgrade 1",
-//     description: "This is the first upgrade",
-//     cost: 1000,
-//   },
-//   {
-//     name: "Upgrade 2",
-//     description: "This is the second upgrade",
-//     cost: 2000,
-//   },
-//   {
-//     name: "Upgrade 3",
-//     description: "This is the third upgrade",
-//     cost: 3000,
-//   },
-// ];
-// const upgradeListElement = document.getElementById("upgradeList");
-// for (let i = 0; i < upgrades.length; i++) {
-//   const li = document.createElement("li");
-//   li.innerHTML = `${upgrades[i].name}: ${upgrades[i].description} <button onclick="buyUpgrade(${i})">Buy</button>`;
+// Upgrades
 
-//   upgradeListElement.appendChild(li);
-// }
+const upgradeListElement = document.getElementById("upgradeList");
+for (let i = 0; i < upgrades.length; i++) {
+  const li = document.createElement("li");
+  li.innerHTML = `${upgrades[i].name}: ${upgrades[i].description} <button onclick="buyUpgrade(${i})">Buy</button>`;
+
+  upgradeListElement.appendChild(li);
+}
