@@ -190,3 +190,14 @@
     background-color: #34495e;
   }
   
+  #saveButton {
+    background-color: #ecf0f1;
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  

@@ -74,3 +74,35 @@ for (let i = 0; i < upgrades.length; i++) {
 
   upgradeListElement.appendChild(li);
 }
+
+// Saving and loading the game the game:
+
+function saveGame() {
+  // Getting the actual DATA
+  let currentState = {
+    cups: ObjetoClick.cup,
+    cupsPerSecond: ObjetoClick.cupPerSecond,
+    buildings: inventario,
+  };
+
+  //Saving in localStorage
+  localStorage.setItem("currentState", JSON.stringify(currentState));
+}
+
+const saveButton = document.getElementById("saveButton");
+saveButton.addEventListener("click", saveGame);
+
+function loadGame() {
+  //Getting the SavedDate
+  var savedGame = JSON.parse(localStorage.getItem("currentState"));
+  // Cheking if its exists
+  if (savedGame) {
+    ObjetoClick.cup = savedGame.cups;
+    ObjetoClick.cupPerSecond = savedGame.cupsPerSecond;
+    inventario = savedGame.buildings;
+  }
+}
+
+window.onload = function () {
+  loadGame();
+};

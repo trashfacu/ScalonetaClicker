@@ -1,6 +1,6 @@
 // Arr of clicker's elements
 
-export const ObjetoClick = {
+export let ObjetoClick = {
   cup: 0,
   cupPerSecond: 0,
   cupsPerClick: 1,
@@ -9,7 +9,7 @@ export const ObjetoClick = {
 
 // INVENTARIO
 
-export const inventario = [
+export let inventario = [
   {
     nombre: "Emiliano Martínez",
     nombreDeClase: "dibuMartinez",
@@ -108,7 +108,7 @@ export const inventario = [
   },
 ];
 
-export const upgrades = [
+export let upgrades = [
   {
     name: "Upgrade 1",
     description: "Prueba de upgrade que aumenta a Molina",
