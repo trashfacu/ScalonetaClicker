@@ -50,8 +50,10 @@ window.setInterval(function () {
 let btnIncreaseCounting = document.getElementById("clickToIncrease");
 btnIncreaseCounting.addEventListener("click", counterCupIncrease);
 
-function nextCost(baseCost, quantity) {
-  return (baseCost = Math.round(baseCost * Math.pow(1.15, quantity)));
+function nextCost(baseCost, quantity, currentCups) {
+  return (baseCost = Math.round(
+    baseCost * Math.pow(1.15, quantity) + currentCups * 0.1
+  ));
 }
 
 function buyBuilding(index) {
@@ -70,7 +72,8 @@ function buyBuilding(index) {
     ); //shows it in the counter
     let nextCostBuilding = nextCost(
       inventario[index].costo,
-      inventario[index].cantidad
+      inventario[index].cantidad,
+      ObjetoClick.cup
     ); // increase the next cost
     document.getElementById(
       "show" + inventario[index].nombre + "Cost"
