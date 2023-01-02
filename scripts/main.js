@@ -1,4 +1,5 @@
 import { inventario, ObjetoClick, upgrades } from "./inventory.js";
+import { deleteGame, loadGame, saveGame } from "./utils.js";
 //Formating and styling
 
 //Creation of the buildings
@@ -49,11 +50,12 @@ function buyBuilding(index) {
       inventario[index].costo,
       inventario[index].cantidad
     ); // increase the next cost
+    inventario[index].costo = nextCostBuilding;
     document.getElementById(
       "show" + inventario[index].nombre + "Cost"
     ).innerText = nextCostBuilding; // updates it in the DOM
   } else {
-    console.log("Te faltan copas");
+    console.error("Te faltan copas");
   }
 }
 
@@ -75,33 +77,14 @@ for (let i = 0; i < upgrades.length; i++) {
   upgradeListElement.appendChild(li);
 }
 
-// Saving and loading the game the game:
-
-function saveGame() {
-  // Getting the actual DATA
-  let currentState = {
-    cups: ObjetoClick.cup,
-    cupsPerSecond: ObjetoClick.cupPerSecond,
-    buildings: inventario,
-  };
-
-  //Saving in localStorage
-  localStorage.setItem("currentState", JSON.stringify(currentState));
-}
-
+// Saving / deleting / loading
 const saveButton = document.getElementById("saveButton");
 saveButton.addEventListener("click", saveGame);
 
-function loadGame() {
-  //Getting the SavedDate
-  var savedGame = JSON.parse(localStorage.getItem("currentState"));
-  // Cheking if its exists
-  if (savedGame) {
-    ObjetoClick.cup = savedGame.cups;
-    ObjetoClick.cupPerSecond = savedGame.cupsPerSecond;
-    inventario = savedGame.buildings;
-  }
-}
+const delButton = document.getElementById("delButton");
+delButton.addEventListener("click", deleteGame);
+
+document.getElementById("showCounterPerSecond");
 
 window.onload = function () {
   loadGame();
