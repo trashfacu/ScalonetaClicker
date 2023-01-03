@@ -1,5 +1,5 @@
 import { inventario, ObjetoClick, upgrades } from "./inventory.js";
-import { deleteGame, loadGame, saveGame } from "./utils.js";
+import { deleteGame, loadGame, prettify, saveGame } from "./utils.js";
 //Formating and styling
 
 //Creation of the buildings
@@ -20,12 +20,12 @@ for (let data in inventario) {
 
 function counterCupIncrease() {
   ObjetoClick.cup += ObjetoClick.cupsPerClick; //add the quantity of counter per click to the total
-  document.getElementById("showCounter").innerText = ObjetoClick.cup;
+  document.getElementById("showCounter").innerText = prettify(ObjetoClick.cup);
 }
 
 window.setInterval(function () {
   ObjetoClick.cup += ObjetoClick.cupPerSecond;
-  document.getElementById("showCounter").innerText = ObjetoClick.cup;
+  document.getElementById("showCounter").innerText = prettify(ObjetoClick.cup);
 }, 1000);
 
 let btnIncreaseCounting = document.getElementById("clickToIncrease");
@@ -44,8 +44,11 @@ function buyBuilding(index) {
       "show" + inventario[index].nombre + "Cant"
     ).innerText = inventario[index].cantidad; //show it in the building counter
     ObjetoClick.cupPerSecond += inventario[index].aumento; //increase the number of cups generated per second
-    document.getElementById("showCounterPerSecond").innerText =
-      ObjetoClick.cupPerSecond; //shows it in the counter
+    document.getElementById("showCounterPerSecond").innerText = prettify(
+      ObjetoClick.cupPerSecond
+    );
+    console.log(inventario[index].costo);
+    //shows it in the counter
     let nextCostBuilding = nextCost(
       inventario[index].costo,
       inventario[index].cantidad
@@ -54,6 +57,7 @@ function buyBuilding(index) {
     document.getElementById(
       "show" + inventario[index].nombre + "Cost"
     ).innerText = nextCostBuilding; // updates it in the DOM
+    console.log(inventario[index].costo);
   } else {
     console.error("Te faltan copas");
   }
@@ -83,8 +87,6 @@ saveButton.addEventListener("click", saveGame);
 
 const delButton = document.getElementById("delButton");
 delButton.addEventListener("click", deleteGame);
-
-document.getElementById("showCounterPerSecond");
 
 window.onload = function () {
   loadGame();
