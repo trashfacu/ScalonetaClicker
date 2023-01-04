@@ -36,28 +36,35 @@ function nextCost(baseCost, quantity) {
 }
 
 function buyBuilding(index) {
+  // Verificar si hay copas suficientes
   if (ObjetoClick.cup >= inventario[index].costo) {
-    ObjetoClick.cup -= inventario[index].costo; // subtract the amount of cups corresponding to the cost of the building
-    document.getElementById("showCounter").innerText = ObjetoClick.cup; // shows them in the counter
-    inventario[index].cantidad++; //add +1 to the building quantity
+    // Restar copas
+    ObjetoClick.cup -= inventario[index].costo;
+    // Mostrar copas restantes
+    document.getElementById("showCounter").innerText = ObjetoClick.cup;
+    // Aumentar cantidad de edificios
+    inventario[index].cantidad++;
+    // Mostrar cantidad de edificios
     document.getElementById(
       "show" + inventario[index].nombre + "Cant"
-    ).innerText = inventario[index].cantidad; //show it in the building counter
-    ObjetoClick.cupPerSecond += inventario[index].aumento; //increase the number of cups generated per second
+    ).innerText = inventario[index].cantidad;
+    // Aumentar copas por segundo
+    ObjetoClick.cupPerSecond += inventario[index].aumento;
+    // Mostrar copas por segundo
     document.getElementById("showCounterPerSecond").innerText = prettify(
       ObjetoClick.cupPerSecond
     );
-    console.log(inventario[index].costo);
-    //shows it in the counter
+    // Calcular costo siguiente
     let nextCostBuilding = nextCost(
-      inventario[index].costo,
+      inventario[index].costoBase,
       inventario[index].cantidad
-    ); // increase the next cost
+    );
+    // Asignar costo siguiente al inventario
     inventario[index].costo = nextCostBuilding;
+    // Mostrar costo siguiente
     document.getElementById(
       "show" + inventario[index].nombre + "Cost"
-    ).innerText = nextCostBuilding; // updates it in the DOM
-    console.log(inventario[index].costo);
+    ).innerText = nextCostBuilding;
   } else {
     console.error("Te faltan copas");
   }
