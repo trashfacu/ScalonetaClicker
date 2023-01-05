@@ -65,8 +65,6 @@ function buyBuilding(index) {
     document.getElementById(
       "show" + inventario[index].nombre + "Cost"
     ).innerText = nextCostBuilding;
-  } else {
-    console.error("Te faltan copas");
   }
 }
 
