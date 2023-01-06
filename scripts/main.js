@@ -68,7 +68,7 @@ function buyBuilding(index) {
   }
 }
 
-let btnBuyBuilding = document.getElementsByClassName("buildingStyle");
+const btnBuyBuilding = document.getElementsByClassName("buildingStyle");
 
 for (let i = 0; i < btnBuyBuilding.length; i++) {
   btnBuyBuilding[i].addEventListener("click", function () {
@@ -76,14 +76,36 @@ for (let i = 0; i < btnBuyBuilding.length; i++) {
   });
 }
 
-// Upgrades
-
+// Creation of upgrades
 const upgradeListElement = document.getElementById("upgradeList");
 for (let i = 0; i < upgrades.length; i++) {
   const li = document.createElement("li");
-  li.innerHTML = `${upgrades[i].name}: ${upgrades[i].description} <button id="buyUpgrade(${i})">Buy</button>`;
+  li.innerHTML = `${upgrades[i].name}: ${upgrades[i].description} <button class="buyUpgrade">Buy</button>`;
 
   upgradeListElement.appendChild(li);
+}
+
+function buyUpgrade(index) {
+  if (ObjetoClick.cup >= upgrades[index].cost) {
+    ObjetoClick.cup -= upgrades[index].cost;
+    document.getElementById("showCounter").innerText = ObjetoClick.cup;
+    //Remove the cost of the upgrade and show the cups left
+
+    const buildingIndex = inventario.findIndex(
+      (building) => building.buildingId === upgrades[index].upgradeId
+    );
+    inventario[buildingIndex].aumento *= upgrades[index].mejora;
+    document.getElementById("showCounterPerSecond").innerText = prettify(
+      inventario[buildingIndex].aumento
+    );
+  }
+}
+
+const btnBuyUpgrade = document.getElementsByClassName("buyUpgrade");
+for (let i = 0; i < btnBuyUpgrade.length; i++) {
+  btnBuyUpgrade[i].addEventListener("click", function () {
+    buyUpgrade(i);
+  });
 }
 
 // Saving / deleting / loading

@@ -8,7 +8,6 @@ export function saveGame() {
     cupsPerSecond: ObjetoClick.cupPerSecond,
     progreso: inventario,
   };
-  //Transform the progress in a json string
   localStorage.setItem("save", JSON.stringify(currentState));
   //Alert the user that the progress is well saved
   alert("¡Progreso guardado!");
@@ -23,6 +22,7 @@ export function loadGame() {
       // Iterates though the array for loading in the object the saved values
       inventario[i].cantidad = saveGame.progreso[i].cantidad;
       inventario[i].costo = saveGame.progreso[i].costo;
+      inventario[i].multiplicador = saveGame.progreso[i].multiplicador;
       let aux = inventario[i];
       // And then it updates in the DOM
       document.getElementById(
