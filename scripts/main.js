@@ -36,7 +36,6 @@ function nextCost(baseCost, quantity) {
 }
 
 function buyBuilding(index) {
-  // Verificar si hay copas suficientes
   if (ObjetoClick.cup >= inventario[index].costo) {
     // Restar copas
     ObjetoClick.cup -= inventario[index].costo;
@@ -88,18 +87,21 @@ for (let i = 0; i < upgrades.length; i++) {
 function buyUpgrade(index) {
   if (ObjetoClick.cup >= upgrades[index].cost) {
     ObjetoClick.cup -= upgrades[index].cost;
-    document.getElementById("showCounter").innerText = ObjetoClick.cup;
-    //Remove the cost of the upgrade and show the cups left
+    document.getElementById("showCounter").innerText = prettify(ObjetoClick.cup);
 
+    // Find the building that the upgrade applies to
     const buildingIndex = inventario.findIndex(
       (building) => building.buildingId === upgrades[index].upgradeId
     );
+    // Apply the upgrade to the building
     inventario[buildingIndex].aumento *= upgrades[index].mejora;
+    // Update the DOM with the new value
     document.getElementById("showCounterPerSecond").innerText = prettify(
       inventario[buildingIndex].aumento
     );
   }
 }
+
 
 const btnBuyUpgrade = document.getElementsByClassName("buyUpgrade");
 for (let i = 0; i < btnBuyUpgrade.length; i++) {

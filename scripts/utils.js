@@ -46,3 +46,6 @@ export function prettify(number) {
   let numberFormat = Math.round(number * 1000000) / 1000000;
   return numberFormat;
 }
+
+// Google analytics
+
