@@ -1,4 +1,5 @@
 import { inventario, ObjetoClick, upgrades } from "./inventory.js";
+import { deleteGame, loadGame, prettify, saveGame } from "./utils.js";
 //Formating and styling
 
 //Creation of the buildings
@@ -19,12 +20,12 @@ for (let data in inventario) {
 
 function counterCupIncrease() {
   ObjetoClick.cup += ObjetoClick.cupsPerClick; //add the quantity of counter per click to the total
-  document.getElementById("showCounter").innerText = ObjetoClick.cup;
+  document.getElementById("showCounter").innerText = prettify(ObjetoClick.cup);
 }
 
 window.setInterval(function () {
   ObjetoClick.cup += ObjetoClick.cupPerSecond;
-  document.getElementById("showCounter").innerText = ObjetoClick.cup;
+  document.getElementById("showCounter").innerText = prettify(ObjetoClick.cup);
 }, 1000);
 
 let btnIncreaseCounting = document.getElementById("clickToIncrease");
@@ -36,28 +37,37 @@ function nextCost(baseCost, quantity) {
 
 function buyBuilding(index) {
   if (ObjetoClick.cup >= inventario[index].costo) {
-    ObjetoClick.cup -= inventario[index].costo; // subtract the amount of cups corresponding to the cost of the building
-    document.getElementById("showCounter").innerText = ObjetoClick.cup; // shows them in the counter
-    inventario[index].cantidad++; //add +1 to the building quantity
+    // Restar copas
+    ObjetoClick.cup -= inventario[index].costo;
+    // Mostrar copas restantes
+    document.getElementById("showCounter").innerText = ObjetoClick.cup;
+    // Aumentar cantidad de edificios
+    inventario[index].cantidad++;
+    // Mostrar cantidad de edificios
     document.getElementById(
       "show" + inventario[index].nombre + "Cant"
-    ).innerText = inventario[index].cantidad; //show it in the building counter
-    ObjetoClick.cupPerSecond += inventario[index].aumento; //increase the number of cups generated per second
-    document.getElementById("showCounterPerSecond").innerText =
-      ObjetoClick.cupPerSecond; //shows it in the counter
+    ).innerText = inventario[index].cantidad;
+    // Aumentar copas por segundo
+    ObjetoClick.cupPerSecond += inventario[index].aumento;
+    // Mostrar copas por segundo
+    document.getElementById("showCounterPerSecond").innerText = prettify(
+      ObjetoClick.cupPerSecond
+    );
+    // Calcular costo siguiente
     let nextCostBuilding = nextCost(
-      inventario[index].costo,
+      inventario[index].costoBase,
       inventario[index].cantidad
-    ); // increase the next cost
+    );
+    // Asignar costo siguiente al inventario
+    inventario[index].costo = nextCostBuilding;
+    // Mostrar costo siguiente
     document.getElementById(
       "show" + inventario[index].nombre + "Cost"
-    ).innerText = nextCostBuilding; // updates it in the DOM
-  } else {
-    console.log("Te faltan copas");
+    ).innerText = nextCostBuilding;
   }
 }
 
-let btnBuyBuilding = document.getElementsByClassName("buildingStyle");
+const btnBuyBuilding = document.getElementsByClassName("buildingStyle");
 
 for (let i = 0; i < btnBuyBuilding.length; i++) {
   btnBuyBuilding[i].addEventListener("click", function () {
@@ -65,12 +75,48 @@ for (let i = 0; i < btnBuyBuilding.length; i++) {
   });
 }
 
-// Upgrades
-
+// Creation of upgrades
 const upgradeListElement = document.getElementById("upgradeList");
 for (let i = 0; i < upgrades.length; i++) {
   const li = document.createElement("li");
-  li.innerHTML = `${upgrades[i].name}: ${upgrades[i].description} <button id="buyUpgrade(${i})">Buy</button>`;
+  li.innerHTML = `${upgrades[i].name}: ${upgrades[i].description} <button class="buyUpgrade">Buy</button>`;
 
   upgradeListElement.appendChild(li);
 }
+
+function buyUpgrade(index) {
+  if (ObjetoClick.cup >= upgrades[index].cost) {
+    ObjetoClick.cup -= upgrades[index].cost;
+    document.getElementById("showCounter").innerText = prettify(ObjetoClick.cup);
+
+    // Find the building that the upgrade applies to
+    const buildingIndex = inventario.findIndex(
+      (building) => building.buildingId === upgrades[index].upgradeId
+    );
+    // Apply the upgrade to the building
+    inventario[buildingIndex].aumento *= upgrades[index].mejora;
+    // Update the DOM with the new value
+    document.getElementById("showCounterPerSecond").innerText = prettify(
+      inventario[buildingIndex].aumento
+    );
+  }
+}
+
+
+const btnBuyUpgrade = document.getElementsByClassName("buyUpgrade");
+for (let i = 0; i < btnBuyUpgrade.length; i++) {
+  btnBuyUpgrade[i].addEventListener("click", function () {
+    buyUpgrade(i);
+  });
+}
+
+// Saving / deleting / loading
+const saveButton = document.getElementById("saveButton");
+saveButton.addEventListener("click", saveGame);
+
+const delButton = document.getElementById("delButton");
+delButton.addEventListener("click", deleteGame);
+
+window.onload = function () {
+  loadGame();
+};
