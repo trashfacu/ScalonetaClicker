@@ -6,11 +6,12 @@ import { deleteGame, loadGame, prettify, saveGame } from "./utils.js";
 for (let data in inventario) {
   let divContainer = document.getElementById("buildingsContainer");
   const buildingHTML = `
-  <div id="${inventario[data].nombreDeClase}" class="buildingStyle">
+  <div class="buildingStyle">
     <img src="${inventario[data].imagen}" alt="${inventario[data].nombreDeClase}" id="sprite" />
-    <p id="${inventario[data].nombreDeClase}">${inventario[data].nombre}</p>
-    <p id="show${inventario[data].nombre}Cost">${inventario[data].costo}</p>
-    <p id="show${inventario[data].nombre}Cant">0</p>
+    <p>${inventario[data].nombre}</p>
+    <p id="show${inventario[data].nombre}Cost">Valor: ${inventario[data].costo}</p>
+    <p id="show${inventario[data].nombre}Cant">Tienes: ${inventario[data].cantidad}</p>
+    <p id="show${inventario[data].nombre}Boost">Genera: ${inventario[data].aumento}</p>
   </div>
 `;
   divContainer.innerHTML += buildingHTML;
@@ -46,7 +47,7 @@ function buyBuilding(index) {
     // Mostrar cantidad de edificios
     document.getElementById(
       "show" + inventario[index].nombre + "Cant"
-    ).innerText = inventario[index].cantidad;
+    ).innerText = `Tienes: ${inventario[index].cantidad}`;
     // Aumentar copas por segundo
     ObjetoClick.cupPerSecond += inventario[index].aumento;
     // Mostrar copas por segundo
@@ -64,6 +65,7 @@ function buyBuilding(index) {
     document.getElementById(
       "show" + inventario[index].nombre + "Cost"
     ).innerText = nextCostBuilding;
+    saveGame();
   }
 }
 
@@ -76,32 +78,54 @@ for (let i = 0; i < btnBuyBuilding.length; i++) {
 }
 
 // Creation of upgrades
-const upgradeListElement = document.getElementById("upgradeList");
+const upgradeDiv = document.getElementById("upgradeList");
 for (let i = 0; i < upgrades.length; i++) {
   const li = document.createElement("li");
-  li.innerHTML = `${upgrades[i].name}: ${upgrades[i].description} <button class="buyUpgrade">Buy</button>`;
-
-  upgradeListElement.appendChild(li);
+  li.innerHTML = `
+  <p>${upgrades[i].name}</p>
+  
+  <p id="upgradeBoost${i}" class="upgradeStyle"> Costo: ${upgrades[i].cost}</p>
+  <p id="upgradeQty${i}" class="upgradeStyle">Upgrade n°: ${upgrades[i].quantity}</p>
+  <button class="buyUpgrade">Buy</button>`;
+  upgradeDiv.appendChild(li);
 }
 
 function buyUpgrade(index) {
-  if (ObjetoClick.cup >= upgrades[index].cost) {
+  if (
+    ObjetoClick.cup >= upgrades[index].cost &&
+    inventario[index].cantidad > 0
+  ) {
+    //Remove the cost of the upgrade and show the cups left
     ObjetoClick.cup -= upgrades[index].cost;
-    document.getElementById("showCounter").innerText = prettify(ObjetoClick.cup);
-
-    // Find the building that the upgrade applies to
+    document.getElementById("showCounter").innerText = ObjetoClick.cup;
+    // Add 1 to the quantity of the upgrades cant and shows what upgrade it is.
+    upgrades[index].quantity++;
+    document.getElementById(
+      `upgradeQty${index}`
+    ).innerText = `Upgrade n°: ${upgrades[index].quantity}`;
+    // Matching the upgrade to their building
     const buildingIndex = inventario.findIndex(
       (building) => building.buildingId === upgrades[index].upgradeId
     );
-    // Apply the upgrade to the building
-    inventario[buildingIndex].aumento *= upgrades[index].mejora;
-    // Update the DOM with the new value
+    inventario[buildingIndex].aumento *= upgrades[index].boost;
+    ObjetoClick.cupPerSecond += inventario[buildingIndex].aumento;
     document.getElementById("showCounterPerSecond").innerText = prettify(
-      inventario[buildingIndex].aumento
+      ObjetoClick.cupPerSecond
     );
+    // calculate the next cost for the building
+    let nextCostUpgrade = nextCost(
+      upgrades[index].baseCost,
+      upgrades[index].quantity
+    );
+    upgrades[index].costo = nextCostUpgrade;
+    // showing it in the card
+    document.getElementById(
+      `upgradeBoost${index}`
+    ).innerText = `Costo: ${prettify(nextCostUpgrade)}`;
+  } else {
+    console.error("No tienes ese edificio");
   }
 }
-
 
 const btnBuyUpgrade = document.getElementsByClassName("buyUpgrade");
 for (let i = 0; i < btnBuyUpgrade.length; i++) {
@@ -111,11 +135,12 @@ for (let i = 0; i < btnBuyUpgrade.length; i++) {
 }
 
 // Saving / deleting / loading
-const saveButton = document.getElementById("saveButton");
-saveButton.addEventListener("click", saveGame);
-
-const delButton = document.getElementById("delButton");
+const delButton = document.getElementById("restartBtn");
 delButton.addEventListener("click", deleteGame);
+
+setInterval(function () {
+  saveGame();
+}, 600000);
 
 window.onload = function () {
   loadGame();

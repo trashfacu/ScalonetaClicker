@@ -131,27 +131,15 @@ export let inventario = [
     multiplicador: 1,
   },
 ];
+// UPGRADES
 
-export let upgrades = [
-  {
-    upgradeId: 1,
-    name: "Guantes de oro",
-    description: "Duplica el valor del Dibu",
-    cost: 1000,
-    mejora: 2,
-  },
-  {
-    upgradeId: 2,
-    name: "Upgrade 2",
-    description: "Duplica el valor de Molina",
-    cost: 2000,
-    mejora: 2,
-  },
-  {
-    upgradeId: 3,
-    name: "Upgrade 3",
-    description: "Duplica el valor de Otamendi",
-    cost: 3000,
-    mejora: 2,
-  },
-];
+export const upgrades = inventario.map((building, index) => {
+  return {
+    upgradeId: building.buildingId,
+    name: `Upgrade for ${building.nombre}`,
+    baseCost: Math.round(building.costoBase * (index + 1) * 10),
+    cost: Math.round(building.costoBase * (index + 1) * 10),
+    boost: 2,
+    quantity: 0,
+  };
+});

@@ -1,4 +1,4 @@
-import { inventario, ObjetoClick } from "./inventory.js";
+import { inventario, ObjetoClick, upgrades } from "./inventory.js";
 //Saving and loading functions
 
 export function saveGame() {
@@ -7,10 +7,10 @@ export function saveGame() {
     cups: ObjetoClick.cup,
     cupsPerSecond: ObjetoClick.cupPerSecond,
     progreso: inventario,
+    upgrades: upgrades,
   };
   localStorage.setItem("save", JSON.stringify(currentState));
-  //Alert the user that the progress is well saved
-  alert("¡Progreso guardado!");
+  console.log("Saved");
 }
 
 export function loadGame() {
@@ -23,17 +23,19 @@ export function loadGame() {
       inventario[i].cantidad = saveGame.progreso[i].cantidad;
       inventario[i].costo = saveGame.progreso[i].costo;
       inventario[i].multiplicador = saveGame.progreso[i].multiplicador;
+      inventario[i].aumento = saveGame.progreso[i].aumento;
       let aux = inventario[i];
       // And then it updates in the DOM
       document.getElementById(
         "show" + inventario[i].nombre + "Cost"
-      ).innerText = aux.costo;
+      ).innerText = prettify(aux.costo);
       document.getElementById(
         "show" + inventario[i].nombre + "Cant"
-      ).innerText = aux.cantidad;
+      ).innerText = prettify(aux.cantidad);
     }
-    document.getElementById("showCounterPerSecond").innerText =
-      ObjetoClick.cupPerSecond;
+    document.getElementById("showCounterPerSecond").innerText = prettify(
+      ObjetoClick.cupPerSecond
+    );
   }
 }
 
@@ -48,4 +50,3 @@ export function prettify(number) {
 }
 
 // Google analytics
-
