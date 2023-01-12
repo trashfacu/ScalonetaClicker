@@ -1,32 +1,35 @@
-import { inventario, ObjetoClick, upgrades } from "./inventory.js";
+import { inventory, objetoClick, upgrades } from "./inventory.js";
 import { deleteGame, loadGame, prettify, saveGame } from "./utils.js";
 //Formating and styling
 
 //Creation of the buildings
-for (let data in inventario) {
+for (let data in inventory) {
   let divContainer = document.getElementById("buildingsContainer");
   const buildingHTML = `
   <div class="buildingStyle">
-    <img src="${inventario[data].imagen}" alt="${inventario[data].nombreDeClase}" id="sprite" />
-    <p>${inventario[data].nombre}</p>
-    <p id="show${inventario[data].nombre}Cost">Valor: ${inventario[data].costo}</p>
-    <p id="show${inventario[data].nombre}Cant">Tienes: ${inventario[data].cantidad}</p>
-    <p id="show${inventario[data].nombre}Boost">Genera: ${inventario[data].aumento}</p>
+    <img src="${inventory[data].image}" alt="${inventory[data].name}" id="sprite" />
+    <p>${inventory[data].name}</p>
+    <p id="show${inventory[data].name}Cost">Valor: ${inventory[data].initialCost}</p>
+    <p id="show${inventory[data].name}Cant">Tienes: ${inventory[data].amount}</p>
+    <p id="show${inventory[data].name}Boost">Genera: ${inventory[data].increase}</p>
   </div>
 `;
   divContainer.innerHTML += buildingHTML;
 }
+//Remove draggin images
+document.getElementById("sprite").draggable = false;
+document.getElementById("clickToIncrease").draggable = false;
 
 //Increment counter and display it.
 
 function counterCupIncrease() {
-  ObjetoClick.cup += ObjetoClick.cupsPerClick; //add the quantity of counter per click to the total
-  document.getElementById("showCounter").innerText = prettify(ObjetoClick.cup);
+  objetoClick.cup += objetoClick.cupsPerClick; //add the quantity of counter per click to the total
+  document.getElementById("showCounter").innerText = prettify(objetoClick.cup);
 }
 
 window.setInterval(function () {
-  ObjetoClick.cup += ObjetoClick.cupPerSecond;
-  document.getElementById("showCounter").innerText = prettify(ObjetoClick.cup);
+  objetoClick.cup += objetoClick.cupPerSecond;
+  document.getElementById("showCounter").innerText = prettify(objetoClick.cup);
 }, 1000);
 
 let btnIncreaseCounting = document.getElementById("clickToIncrease");
@@ -37,34 +40,34 @@ function nextCost(baseCost, quantity) {
 }
 
 function buyBuilding(index) {
-  if (ObjetoClick.cup >= inventario[index].costo) {
+  if (objetoClick.cup >= inventory[index].currentCost) {
     // Restar copas
-    ObjetoClick.cup -= inventario[index].costo;
+    objetoClick.cup -= inventory[index].currentCost;
     // Mostrar copas restantes
-    document.getElementById("showCounter").innerText = ObjetoClick.cup;
-    // Aumentar cantidad de edificios
-    inventario[index].cantidad++;
-    // Mostrar cantidad de edificios
+    document.getElementById("showCounter").innerText = objetoClick.cup;
+    // Aumentar amount de edificios
+    inventory[index].amount++;
+    // Mostrar amount de edificios
     document.getElementById(
-      "show" + inventario[index].nombre + "Cant"
-    ).innerText = `Tienes: ${inventario[index].cantidad}`;
+      "show" + inventory[index].name + "Cant"
+    ).innerText = `Tienes: ${inventory[index].amount}`;
     // Aumentar copas por segundo
-    ObjetoClick.cupPerSecond += inventario[index].aumento;
+    objetoClick.cupPerSecond += inventory[index].increase;
     // Mostrar copas por segundo
     document.getElementById("showCounterPerSecond").innerText = prettify(
-      ObjetoClick.cupPerSecond
+      objetoClick.cupPerSecond
     );
-    // Calcular costo siguiente
+    // Calcular initialCost siguiente
     let nextCostBuilding = nextCost(
-      inventario[index].costoBase,
-      inventario[index].cantidad
+      inventory[index].initialCost,
+      inventory[index].amount
     );
-    // Asignar costo siguiente al inventario
-    inventario[index].costo = nextCostBuilding;
-    // Mostrar costo siguiente
+    // Asignar initialCost siguiente al inventario
+    inventory[index].currentCost = nextCostBuilding;
+    // Mostrar initialCost siguiente
     document.getElementById(
-      "show" + inventario[index].nombre + "Cost"
-    ).innerText = nextCostBuilding;
+      "show" + inventory[index].name + "Cost"
+    ).innerText = `Valor: ${nextCostBuilding}`;
     saveGame();
   }
 }
@@ -91,39 +94,41 @@ for (let i = 0; i < upgrades.length; i++) {
 }
 
 function buyUpgrade(index) {
-  if (
-    ObjetoClick.cup >= upgrades[index].cost &&
-    inventario[index].cantidad > 0
-  ) {
+  if (objetoClick.cup >= upgrades[index].cost && inventory[index].amount > 0) {
     //Remove the cost of the upgrade and show the cups left
-    ObjetoClick.cup -= upgrades[index].cost;
-    document.getElementById("showCounter").innerText = ObjetoClick.cup;
+    objetoClick.cup -= upgrades[index].cost;
+    document.getElementById("showCounter").innerText = objetoClick.cup;
     // Add 1 to the quantity of the upgrades cant and shows what upgrade it is.
     upgrades[index].quantity++;
     document.getElementById(
       `upgradeQty${index}`
     ).innerText = `Upgrade n°: ${upgrades[index].quantity}`;
     // Matching the upgrade to their building
-    const buildingIndex = inventario.findIndex(
+    const buildingIndex = inventory.findIndex(
       (building) => building.buildingId === upgrades[index].upgradeId
     );
-    inventario[buildingIndex].aumento *= upgrades[index].boost;
-    ObjetoClick.cupPerSecond += inventario[buildingIndex].aumento;
+    inventory[buildingIndex].increase *= upgrades[index].boost;
+    objetoClick.cupPerSecond += inventory[buildingIndex].increase;
     document.getElementById("showCounterPerSecond").innerText = prettify(
-      ObjetoClick.cupPerSecond
+      objetoClick.cupPerSecond
     );
     // calculate the next cost for the building
     let nextCostUpgrade = nextCost(
       upgrades[index].baseCost,
       upgrades[index].quantity
     );
-    upgrades[index].costo = nextCostUpgrade;
-    // showing it in the card
+    upgrades[index].initialCost = nextCostUpgrade;
+    // shows it in the card
     document.getElementById(
       `upgradeBoost${index}`
     ).innerText = `Costo: ${prettify(nextCostUpgrade)}`;
+    //Shows it in the player card
+    document.getElementById(
+      `show${inventory[index].name}Boost`
+    ).innerText = `Genera: ${inventory[index].increase}`;
+    saveGame();
   } else {
-    console.error("No tienes ese edificio");
+    console.error("U cant buy this!");
   }
 }
 

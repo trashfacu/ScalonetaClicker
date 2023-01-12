@@ -1,12 +1,12 @@
-import { inventario, ObjetoClick, upgrades } from "./inventory.js";
+import { inventory, objetoClick, upgrades } from "./inventory.js";
 //Saving and loading functions
 
 export function saveGame() {
   //Saved the current state of the progress
   let currentState = {
-    cups: ObjetoClick.cup,
-    cupsPerSecond: ObjetoClick.cupPerSecond,
-    progreso: inventario,
+    cups: objetoClick.cup,
+    cupsPerSecond: objetoClick.cupPerSecond,
+    progreso: inventory,
     upgrades: upgrades,
   };
   localStorage.setItem("save", JSON.stringify(currentState));
@@ -16,25 +16,24 @@ export function saveGame() {
 export function loadGame() {
   let saveGame = JSON.parse(localStorage.getItem("save")); //Again we parsed the Json for making it a usable jsObject
   if (saveGame) {
-    ObjetoClick.cup = saveGame.cups;
-    ObjetoClick.cupPerSecond = saveGame.cupsPerSecond;
-    for (let i = 0; i < inventario.length; i++) {
+    objetoClick.cup = saveGame.cups;
+    objetoClick.cupPerSecond = saveGame.cupsPerSecond;
+    for (let i = 0; i < inventory.length; i++) {
       // Iterates though the array for loading in the object the saved values
-      inventario[i].cantidad = saveGame.progreso[i].cantidad;
-      inventario[i].costo = saveGame.progreso[i].costo;
-      inventario[i].multiplicador = saveGame.progreso[i].multiplicador;
-      inventario[i].aumento = saveGame.progreso[i].aumento;
-      let aux = inventario[i];
+      inventory[i].amount = saveGame.progreso[i].amount;
+      inventory[i].currentCost = saveGame.progreso[i].currentCost;
+      inventory[i].increase = saveGame.progreso[i].increase;
+      let aux = inventory[i];
       // And then it updates in the DOM
       document.getElementById(
-        "show" + inventario[i].nombre + "Cost"
-      ).innerText = prettify(aux.costo);
+        "show" + inventory[i].name + "Cost"
+      ).innerText = `Valor: ${prettify(aux.currentCost)}`;
       document.getElementById(
-        "show" + inventario[i].nombre + "Cant"
-      ).innerText = prettify(aux.cantidad);
+        "show" + inventory[i].name + "Cant"
+      ).innerText = `Tienes: ${prettify(aux.amount)}`;
     }
     document.getElementById("showCounterPerSecond").innerText = prettify(
-      ObjetoClick.cupPerSecond
+      objetoClick.cupPerSecond
     );
   }
 }
