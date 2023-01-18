@@ -1,23 +1,21 @@
 import { inventory, objetoClick, upgrades } from "./inventory.js";
 import { deleteGame, loadGame, prettify, saveGame } from "./utils.js";
-//Formating and styling
-
 //Creation of the buildings
 for (let data in inventory) {
   let divContainer = document.getElementById("buildingsContainer");
   const buildingHTML = `
   <div class="buildingStyle">
-    <img src="${inventory[data].image}" alt="${inventory[data].name}" id="sprite" />
-    <p>${inventory[data].name}</p>
-    <p id="show${inventory[data].name}Cost">Valor: ${inventory[data].initialCost}</p>
-    <p id="show${inventory[data].name}Cant">Tienes: ${inventory[data].amount}</p>
-    <p id="show${inventory[data].name}Boost">Genera: ${inventory[data].increase}</p>
+  <img src="${inventory[data].image}" alt="${inventory[data].name}" class="sprite" />
+  <p>${inventory[data].name}</p>   
+    <img src="${inventory[data].costImage}" alt="costBuilding_img" class="imgCost" />
+    <p id="show${inventory[data].name}Cost" class="buildingCost">${inventory[data].initialCost}</p>
+    <p id="show${inventory[data].name}Cant" class="buildingCant">${inventory[data].amount}</p>
   </div>
 `;
   divContainer.innerHTML += buildingHTML;
 }
 //Remove draggin images
-document.getElementById("sprite").draggable = false;
+document.getElementsByClassName("sprite").draggable = false;
 document.getElementById("clickToIncrease").draggable = false;
 
 //Increment counter and display it.
@@ -82,15 +80,37 @@ for (let i = 0; i < btnBuyBuilding.length; i++) {
 
 // Creation of upgrades
 const upgradeDiv = document.getElementById("upgradeList");
+//TODO add images to upgrades
+
 for (let i = 0; i < upgrades.length; i++) {
   const li = document.createElement("li");
   li.innerHTML = `
   <p>${upgrades[i].name}</p>
-  
+  <img src="${upgrades[i].image}" alt="${upgrades[i].name}"/>
+  <img src="${upgrades[i].costImage}" alt="costImage" class="costImage"/>
   <p id="upgradeBoost${i}" class="upgradeStyle"> Costo: ${upgrades[i].cost}</p>
   <p id="upgradeQty${i}" class="upgradeStyle">Upgrade n°: ${upgrades[i].quantity}</p>
   <button class="buyUpgrade">Buy</button>`;
   upgradeDiv.appendChild(li);
+}
+
+//Creation of the tooltip to show the description when hovered
+
+const upgradeImgs = document.querySelectorAll("#upgradeList img");
+
+for (let i = 0; i < upgradeImgs.length; i++) {
+  upgradeImgs[i].addEventListener("mouseover", function () {
+    // create a tooltip element
+    const tooltip = document.createElement("div");
+    tooltip.classList.add("tooltip");
+    tooltip.innerHTML = upgrades[i].description;
+    upgradeImgs[i].parentNode.appendChild(tooltip);
+  });
+
+  upgradeImgs[i].addEventListener("mouseout", function () {
+    const tooltip = document.querySelector(".tooltip");
+    tooltip.remove();
+  });
 }
 
 function buyUpgrade(index) {

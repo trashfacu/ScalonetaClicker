@@ -27,10 +27,10 @@ export function loadGame() {
       // And then it updates in the DOM
       document.getElementById(
         "show" + inventory[i].name + "Cost"
-      ).innerText = `Valor: ${prettify(aux.currentCost)}`;
+      ).innerText = `${prettify(aux.currentCost)}`;
       document.getElementById(
         "show" + inventory[i].name + "Cant"
-      ).innerText = `Tienes: ${prettify(aux.amount)}`;
+      ).innerText = `${prettify(aux.amount)}`;
     }
     document.getElementById("showCounterPerSecond").innerText = prettify(
       objetoClick.cupPerSecond
