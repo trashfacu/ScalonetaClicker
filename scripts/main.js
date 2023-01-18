@@ -5,15 +5,26 @@ for (let data in inventory) {
   let divContainer = document.getElementById("buildingsContainer");
   const buildingHTML = `
   <div class="buildingStyle">
-  <img src="${inventory[data].image}" alt="${inventory[data].name}" class="sprite" />
-  <p>${inventory[data].name}</p>   
+  <span class="span_left">
+    <img src="${inventory[data].image}" alt="${inventory[data].name}" class="sprite" />
+  </span>
+  <span class="span_middle">
+    <span class="span_middle_up">
+      <p>${inventory[data].name}</p>
+    </span>
+      <span class="span_middle_down">
     <img src="${inventory[data].costImage}" alt="costBuilding_img" class="imgCost" />
     <p id="show${inventory[data].name}Cost" class="buildingCost">${inventory[data].initialCost}</p>
+    </span>
+  </span> 
+  <span class="span_right">
     <p id="show${inventory[data].name}Cant" class="buildingCant">${inventory[data].amount}</p>
-  </div>
+    </span>
+    </div>
 `;
   divContainer.innerHTML += buildingHTML;
 }
+
 //Remove draggin images
 document.getElementsByClassName("sprite").draggable = false;
 document.getElementById("clickToIncrease").draggable = false;
