@@ -59,7 +59,7 @@ function buyBuilding(index) {
     // Mostrar amount de edificios
     document.getElementById(
       "show" + inventory[index].name + "Cant"
-    ).innerText = `Tienes: ${inventory[index].amount}`;
+    ).innerText = `${inventory[index].amount}`;
     // Aumentar copas por segundo
     objetoClick.cupPerSecond += inventory[index].increase;
     // Mostrar copas por segundo
