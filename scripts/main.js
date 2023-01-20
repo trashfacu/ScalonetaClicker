@@ -76,7 +76,7 @@ function buyBuilding(index) {
     // Mostrar initialCost siguiente
     document.getElementById(
       "show" + inventory[index].name + "Cost"
-    ).innerText = `Valor: ${nextCostBuilding}`;
+    ).innerText = `${nextCostBuilding}`;
     saveGame();
   }
 }
