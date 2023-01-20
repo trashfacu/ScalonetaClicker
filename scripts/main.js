@@ -90,24 +90,20 @@ for (let i = 0; i < btnBuyBuilding.length; i++) {
 }
 
 // Creation of upgrades
-const upgradeDiv = document.getElementById("upgradeList");
+const upgradeDiv = document.getElementById("upgrade_list");
 //TODO add images to upgrades
 
 for (let i = 0; i < upgrades.length; i++) {
   const li = document.createElement("li");
   li.innerHTML = `
-  <p>${upgrades[i].name}</p>
   <img src="${upgrades[i].image}" alt="${upgrades[i].name}"/>
-  <img src="${upgrades[i].costImage}" alt="costImage" class="costImage"/>
-  <p id="upgradeBoost${i}" class="upgradeStyle"> Costo: ${upgrades[i].cost}</p>
-  <p id="upgradeQty${i}" class="upgradeStyle">Upgrade n°: ${upgrades[i].quantity}</p>
-  <button class="buyUpgrade">Buy</button>`;
+  `;
   upgradeDiv.appendChild(li);
 }
 
 //Creation of the tooltip to show the description when hovered
 
-const upgradeImgs = document.querySelectorAll("#upgradeList img");
+const upgradeImgs = document.querySelectorAll("#upgrade_list img");
 
 for (let i = 0; i < upgradeImgs.length; i++) {
   upgradeImgs[i].addEventListener("mouseover", function () {
