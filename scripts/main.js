@@ -59,7 +59,7 @@ function buyBuilding(index) {
     // Mostrar amount de edificios
     document.getElementById(
       "show" + inventory[index].name + "Cant"
-    ).innerText = `Tienes: ${inventory[index].amount}`;
+    ).innerText = `${inventory[index].amount}`;
     // Aumentar copas por segundo
     objetoClick.cupPerSecond += inventory[index].increase;
     // Mostrar copas por segundo
@@ -76,7 +76,7 @@ function buyBuilding(index) {
     // Mostrar initialCost siguiente
     document.getElementById(
       "show" + inventory[index].name + "Cost"
-    ).innerText = `Valor: ${nextCostBuilding}`;
+    ).innerText = `${nextCostBuilding}`;
     saveGame();
   }
 }
@@ -89,35 +89,28 @@ for (let i = 0; i < btnBuyBuilding.length; i++) {
   });
 }
 
-// Creation of upgrades
+// Creation of upgrades and the tooltip
 const upgradeDiv = document.getElementById("upgrade_list");
-//TODO add images to upgrades
 
 for (let i = 0; i < upgrades.length; i++) {
   const li = document.createElement("li");
   li.innerHTML = `
-  <img src="${upgrades[i].image}" alt="${upgrades[i].name}"/>
+  <div class="upgrade-item">
+    <img src="${upgrades[i].image}" alt="${upgrades[i].name}" class="buyUpgrade"/>
+    <div class="tooltip">
+    <span class="tooltip_image"><img src="${upgrades[i].image}" alt="tooltip_img"</span>
+    <span class="tooltip_middle">
+    <span class="tooltip_name">${upgrades[i].name}</span>
+    <span class="tooltip_text">${upgrades[i].description}</span>
+    </span>
+    <span class="tooltip_down">
+    <img src="${upgrades[i].costImage}" alt="costimage">
+    <p>${upgrades[i].currentCost}</p>
+    </span>
+    </div>
+  </div>
   `;
   upgradeDiv.appendChild(li);
-}
-
-//Creation of the tooltip to show the description when hovered
-
-const upgradeImgs = document.querySelectorAll("#upgrade_list img");
-
-for (let i = 0; i < upgradeImgs.length; i++) {
-  upgradeImgs[i].addEventListener("mouseover", function () {
-    // create a tooltip element
-    const tooltip = document.createElement("div");
-    tooltip.classList.add("tooltip");
-    tooltip.innerHTML = upgrades[i].description;
-    upgradeImgs[i].parentNode.appendChild(tooltip);
-  });
-
-  upgradeImgs[i].addEventListener("mouseout", function () {
-    const tooltip = document.querySelector(".tooltip");
-    tooltip.remove();
-  });
 }
 
 function buyUpgrade(index) {
