@@ -159,34 +159,20 @@ li img {
     width: 100%;
 }
 
-.upgrade-item {
-    position: relative;
-  }
-  
-  .tooltip {
+.tooltip_container {
     display: none;
-    position: absolute;
-    top: 25px;
-    left: 0;
-    width: 200px;
-    max-width: 150px; /* add this */
-    background-color: #000;
-
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    transform: translateX(-100%);
-  }
-  
-  .tooltip-text {
-    font-size: 14px;
-    text-align: center;
-  }
-  
-  .upgrade-item:hover .tooltip {
+    }
+    
+    .upgrade-item:hover .tooltip_container {
     display: block;
-  }
-  
+    }
+
+.tooltip {
+    display: flex;
+    
+}
+
+    
 
 @keyframes bounce-in {
     0% {

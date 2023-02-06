@@ -1,24 +1,38 @@
 import { inventory, objetoClick, upgrades } from "./inventory.js";
-import { deleteGame, loadGame, prettify, saveGame } from "./utils.js";
+import {
+  deleteGame,
+  loadGame,
+  prettify,
+  saveGame,
+  numberFormat,
+} from "./utils.js";
 //Creation of the buildings
 for (let data in inventory) {
   let divContainer = document.getElementById("buildingsContainer");
   const buildingHTML = `
   <div class="buildingStyle">
   <span class="span_left">
-    <img src="${inventory[data].image}" alt="${inventory[data].name}" class="sprite" />
+    <img src="${inventory[data].image}" alt="${
+    inventory[data].name
+  }" class="sprite" />
   </span>
   <span class="span_middle">
     <span class="span_middle_up">
       <p>${inventory[data].name}</p>
     </span>
       <span class="span_middle_down">
-    <img src="${inventory[data].costImage}" alt="costBuilding_img" class="imgCost" />
-    <p id="show${inventory[data].name}Cost" class="buildingCost">${inventory[data].initialCost}</p>
+    <img src="${
+      inventory[data].costImage
+    }" alt="costBuilding_img" class="imgCost" />
+    <p id="show${inventory[data].name}Cost" class="buildingCost">${numberFormat(
+    inventory[data].initialCost
+  )}</p>
     </span>
   </span> 
   <span class="span_right">
-    <p id="show${inventory[data].name}Cant" class="buildingCant">${inventory[data].amount}</p>
+    <p id="show${inventory[data].name}Cant" class="buildingCant">${
+    inventory[data].amount
+  }</p>
     </span>
     </div>
 `;
@@ -33,12 +47,16 @@ document.getElementById("clickToIncrease").draggable = false;
 
 function counterCupIncrease() {
   objetoClick.cup += objetoClick.cupsPerClick; //add the quantity of counter per click to the total
-  document.getElementById("showCounter").innerText = prettify(objetoClick.cup);
+  document.getElementById("showCounter").innerText = numberFormat(
+    prettify(objetoClick.cup)
+  );
 }
 
 window.setInterval(function () {
   objetoClick.cup += objetoClick.cupPerSecond;
-  document.getElementById("showCounter").innerText = prettify(objetoClick.cup);
+  document.getElementById("showCounter").innerText = numberFormat(
+    prettify(objetoClick.cup)
+  );
 }, 1000);
 
 let btnIncreaseCounting = document.getElementById("clickToIncrease");
@@ -63,8 +81,8 @@ function buyBuilding(index) {
     // Aumentar copas por segundo
     objetoClick.cupPerSecond += inventory[index].increase;
     // Mostrar copas por segundo
-    document.getElementById("showCounterPerSecond").innerText = prettify(
-      objetoClick.cupPerSecond
+    document.getElementById("showCounterPerSecond").innerText = numberFormat(
+      prettify(objetoClick.cupPerSecond)
     );
     // Calcular initialCost siguiente
     let nextCostBuilding = nextCost(
@@ -97,6 +115,7 @@ for (let i = 0; i < upgrades.length; i++) {
   li.innerHTML = `
   <div class="upgrade-item">
     <img src="${upgrades[i].image}" alt="${upgrades[i].name}" class="buyUpgrade"/>
+    <span class="tooltip_container">
     <div class="tooltip">
     <span class="tooltip_image"><img src="${upgrades[i].image}" alt="tooltip_img"</span>
     <span class="tooltip_middle">
@@ -108,6 +127,7 @@ for (let i = 0; i < upgrades.length; i++) {
     <p>${upgrades[i].currentCost}</p>
     </span>
     </div>
+    </span>
   </div>
   `;
   upgradeDiv.appendChild(li);
@@ -141,7 +161,7 @@ function buyUpgrade(index) {
     // shows it in the card
     document.getElementById(
       `upgradeBoost${index}`
-    ).innerText = `Costo: ${prettify(nextCostUpgrade)}`;
+    ).innerText = `Costo: ${numberFormat(prettify(nextCostUpgrade))}`;
     //Shows it in the player card
     document.getElementById(
       `show${inventory[index].name}Boost`
