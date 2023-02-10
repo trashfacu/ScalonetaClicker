@@ -6,7 +6,7 @@ import {
   saveGame,
   numberFormat,
 } from "./utils.js";
-//Creation of the buildings
+//Creation of the building
 for (let data in inventory) {
   let divContainer = document.getElementById("buildingsContainer");
   const buildingHTML = `
