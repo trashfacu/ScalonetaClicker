@@ -24,6 +24,7 @@ class Building {
     this.initialCost = initialCost;
     this.currentCost = currentCost;
     this.amount = 0;
+    this.maxAmount = 5000;
     this.increase = increase;
     this.image = image;
     this.costImage = costImage;

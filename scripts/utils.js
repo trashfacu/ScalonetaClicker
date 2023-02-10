@@ -27,13 +27,13 @@ export function loadGame() {
       // And then it updates in the DOM
       document.getElementById(
         "show" + inventory[i].name + "Cost"
-      ).innerText = `${prettify(aux.currentCost)}`;
+      ).innerText = `${numberFormat(prettify(aux.currentCost))}`;
       document.getElementById(
         "show" + inventory[i].name + "Cant"
-      ).innerText = `${prettify(aux.amount)}`;
+      ).innerText = `${numberFormat(prettify(aux.amount))}`;
     }
-    document.getElementById("showCounterPerSecond").innerText = prettify(
-      objetoClick.cupPerSecond
+    document.getElementById("showCounterPerSecond").innerText = numberFormat(
+      prettify(objetoClick.cupPerSecond)
     );
   }
 }
@@ -49,7 +49,34 @@ export function prettify(number) {
 }
 
 export function numberFormat(n) {
-  if (n < 1000000) return n;
-  if (n >= 1000000000) return (n / 1000000000).toFixed(3) + " Billon";
-  return (n / 1000000).toFixed(3) + " Millon";
+  if (n < 1000) return n.toString();
+  let suffixes = [
+    "",
+    "M",
+    "B",
+    "T",
+    "Qa",
+    "Qi",
+    "Sx",
+    "Sp",
+    "Oc",
+    "No",
+    "De",
+    "UnD",
+    "DuO",
+    "TrI",
+    "Qua",
+    "Qui",
+    "Sex",
+    "Sep",
+    "Oct",
+    "Non",
+    "Dec",
+  ];
+  let suffixNum = Math.floor(Math.log10(n) / 3);
+  let shortNum = n / Math.pow(10, suffixNum * 3);
+  let formattedNum =
+    shortNum.toFixed(3 - Math.floor(Math.log10(shortNum))) +
+    suffixes[suffixNum];
+  return formattedNum;
 }

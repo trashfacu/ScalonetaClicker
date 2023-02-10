@@ -67,35 +67,32 @@ function nextCost(baseCost, quantity) {
 }
 
 function buyBuilding(index) {
-  if (objetoClick.cup >= inventory[index].currentCost) {
-    // Restar copas
-    objetoClick.cup -= inventory[index].currentCost;
-    // Mostrar copas restantes
-    document.getElementById("showCounter").innerText = objetoClick.cup;
-    // Aumentar amount de edificios
-    inventory[index].amount++;
-    // Mostrar amount de edificios
-    document.getElementById(
-      "show" + inventory[index].name + "Cant"
-    ).innerText = `${inventory[index].amount}`;
-    // Aumentar copas por segundo
-    objetoClick.cupPerSecond += inventory[index].increase;
-    // Mostrar copas por segundo
-    document.getElementById("showCounterPerSecond").innerText = numberFormat(
-      prettify(objetoClick.cupPerSecond)
-    );
-    // Calcular initialCost siguiente
-    let nextCostBuilding = nextCost(
-      inventory[index].initialCost,
-      inventory[index].amount
-    );
-    // Asignar initialCost siguiente al inventario
-    inventory[index].currentCost = nextCostBuilding;
-    // Mostrar initialCost siguiente
-    document.getElementById(
-      "show" + inventory[index].name + "Cost"
-    ).innerText = `${nextCostBuilding}`;
-    saveGame();
+  if (inventory[index].amount < inventory[index].maxAmount) {
+    if (objetoClick.cup >= inventory[index].currentCost) {
+      objetoClick.cup -= inventory[index].currentCost;
+      document.getElementById("showCounter").innerText = objetoClick.cup;
+      inventory[index].amount++;
+      document.getElementById(
+        "show" + inventory[index].name + "Cant"
+      ).innerText = `${inventory[index].amount}`;
+      objetoClick.cupPerSecond += inventory[index].increase;
+      document.getElementById("showCounterPerSecond").innerText = numberFormat(
+        prettify(objetoClick.cupPerSecond)
+      );
+      let nextCostBuilding = nextCost(
+        inventory[index].initialCost,
+        inventory[index].amount
+      );
+      inventory[index].currentCost = nextCostBuilding;
+      document.getElementById(
+        "show" + inventory[index].name + "Cost"
+      ).innerText = `${nextCostBuilding}`;
+      saveGame();
+    }
+  } else if (objetoClick.cup >= inventory[index].currentCost) {
+    console.error("No tienes suficientes copas");
+  } else {
+    alert("Haz llegado al limite de edificios de este tipo que puedes comprar");
   }
 }
 
@@ -116,17 +113,6 @@ for (let i = 0; i < upgrades.length; i++) {
   <div class="upgrade-item">
     <img src="${upgrades[i].image}" alt="${upgrades[i].name}" class="buyUpgrade"/>
     <span class="tooltip_container">
-    <div class="tooltip">
-    <span class="tooltip_image"><img src="${upgrades[i].image}" alt="tooltip_img"</span>
-    <span class="tooltip_middle">
-    <span class="tooltip_name">${upgrades[i].name}</span>
-    <span class="tooltip_text">${upgrades[i].description}</span>
-    </span>
-    <span class="tooltip_down">
-    <img src="${upgrades[i].costImage}" alt="costimage">
-    <p>${upgrades[i].currentCost}</p>
-    </span>
-    </div>
     </span>
   </div>
   `;
