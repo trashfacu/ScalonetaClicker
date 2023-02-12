@@ -164,12 +164,37 @@ li img {
 }
 
 .tooltip_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.tooltip_up, .tooltip_down {
+    display:flex;
+    width: 200px;
+    background-color: #649b89;
+
+}
+
+.hiden {
     display: none;
-    }
-    
-    .upgrade-item:hover .tooltip_container {
+}
+
+.tooltip_up img,
+.tooltip_up p,
+.tooltip_down p {
+  margin: 0;
+}
+
+.tooltip_up img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.upgrade-item:hover .hiden {
     display: block;
     }
+    
     
 
 @keyframes bounce-in {

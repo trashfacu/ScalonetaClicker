@@ -49,34 +49,10 @@ export function prettify(number) {
 }
 
 export function numberFormat(n) {
-  if (n < 1000) return n.toString();
-  let suffixes = [
-    "",
-    "M",
-    "B",
-    "T",
-    "Qa",
-    "Qi",
-    "Sx",
-    "Sp",
-    "Oc",
-    "No",
-    "De",
-    "UnD",
-    "DuO",
-    "TrI",
-    "Qua",
-    "Qui",
-    "Sex",
-    "Sep",
-    "Oct",
-    "Non",
-    "Dec",
-  ];
-  let suffixNum = Math.floor(Math.log10(n) / 3);
-  let shortNum = n / Math.pow(10, suffixNum * 3);
-  let formattedNum =
-    shortNum.toFixed(3 - Math.floor(Math.log10(shortNum))) +
-    suffixes[suffixNum];
+  if (n < 1000000) return n; // No formatting needed for numbers less than 1 million
+  let suffixes = ["M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "De"];
+  let suffixNum = Math.floor(Math.log10(n) / 6); // Divide log10 by 6 to get the order of magnitude in millions
+  let shortNum = n / Math.pow(10, suffixNum * 6); // Divide the number by 10^(suffixNum * 6) to get the number in millions
+  let formattedNum = shortNum.toFixed(1) + suffixes[suffixNum - 1]; // Add the appropriate suffix and format to 1 decimal place
   return formattedNum;
 }

@@ -112,7 +112,18 @@ for (let i = 0; i < upgrades.length; i++) {
   li.innerHTML = `
   <div class="upgrade-item">
     <img src="${upgrades[i].image}" alt="${upgrades[i].name}" class="buyUpgrade"/>
-    <span class="tooltip_container">
+    <span class="hiden"> 
+    <div class="tooltip_container">
+      <div class="tooltip_up">
+        <img src="${upgrades[i].image}" alt="upgrade image">
+        <p>${upgrades[i].name}</p>
+        <img src="${upgrades[i].costImage}">
+        <p>${upgrades[i].currentCost}</p>
+      </div>
+      <div class="tooltip_down">
+        <p>${upgrades[i].description}</p>
+      </div>
+    </div>
     </span>
   </div>
   `;

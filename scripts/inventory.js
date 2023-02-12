@@ -149,7 +149,7 @@ class Upgrade {
 export const upgrades = [
   new Upgrade(
     1,
-    "Guantes de ero",
+    "Guantes de oro",
     100,
     100,
     "../assets/sprites_upgrades/EmilianoMartinez_upgrade.png",
