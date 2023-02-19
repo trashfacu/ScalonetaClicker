@@ -9,37 +9,38 @@ export let objetoClick = {
 
 // INVENTARIO}
 
-function createArrayBuildings(
-  id,
-  name,
-  initialCost,
-  currentCost,
-  increase,
-  image
-) {
-  return {
-    id: id,
-    name: name,
-    initialCost: initialCost,
-    currentCost: currentCost,
-    amount: 0,
-    increase: increase,
-    image: image,
-    costImage: "./assets/click.me.png",
-  };
+class Building {
+  constructor(
+    id,
+    name,
+    initialCost,
+    currentCost,
+    increase,
+    image,
+    costImage = "./assets/click.me.png"
+  ) {
+    this.id = id;
+    this.name = name;
+    this.initialCost = initialCost;
+    this.currentCost = currentCost;
+    this.amount = 0;
+    this.maxAmount = 5000;
+    this.increase = increase;
+    this.image = image;
+    this.costImage = costImage;
+  }
 }
 
 export const inventory = [
-  createArrayBuildings(
+  new Building(
     1,
     "Emiliano Martinez",
     15,
     15,
     0.1,
-    "./assets/sprites_inv/EmilianoMartinez.png",
-    "Esta mejora aumenta las copas que genera Emi Martinez y duplica lo que genera cada clic."
+    "./assets/sprites_inv/EmilianoMartinez.png"
   ),
-  createArrayBuildings(
+  new Building(
     2,
     "Nahuel Molina",
     100,
@@ -47,7 +48,7 @@ export const inventory = [
     1,
     "./assets/sprites_inv/Molina02.png"
   ),
-  createArrayBuildings(
+  new Building(
     3,
     "Nicolás Otamendi",
     1100,
@@ -55,7 +56,7 @@ export const inventory = [
     8,
     "./assets/sprites_inv/Otamendi02.png"
   ),
-  createArrayBuildings(
+  new Building(
     4,
     "Nicolas Tagliafico",
     12000,
@@ -63,7 +64,7 @@ export const inventory = [
     47,
     "./assets/sprites_inv/Tagliafico02.png"
   ),
-  createArrayBuildings(
+  new Building(
     5,
     "Ángel Di María",
     130000,
@@ -71,7 +72,7 @@ export const inventory = [
     260,
     "./assets/sprites_inv/Di_Maria.png"
   ),
-  createArrayBuildings(
+  new Building(
     6,
     "Alejandro Gomez",
     1400000,
@@ -79,7 +80,7 @@ export const inventory = [
     1400,
     "./assets/sprites_inv/Gomez02.png"
   ),
-  createArrayBuildings(
+  new Building(
     7,
     "Rodrigo De Paul",
     20000000,
@@ -87,7 +88,7 @@ export const inventory = [
     7800,
     "./assets/sprites_inv/DePaul01.png"
   ),
-  createArrayBuildings(
+  new Building(
     8,
     "Enzo Fernández",
     330000000,
@@ -95,7 +96,7 @@ export const inventory = [
     44000,
     "./assets/sprites_inv/Fernandez01.png"
   ),
-  createArrayBuildings(
+  new Building(
     9,
     "Alexis Mac Allister",
     5100000000,
@@ -103,7 +104,7 @@ export const inventory = [
     260000,
     "./assets/sprites_inv/MacAllister02.png"
   ),
-  createArrayBuildings(
+  new Building(
     10,
     "Julián Álvarez",
     75000000000,
@@ -111,7 +112,7 @@ export const inventory = [
     1600000,
     "./assets/sprites_inv/Alvarez01.png"
   ),
-  createArrayBuildings(
+  new Building(
     11,
     "Lionel Messi",
     1000000000000,
@@ -119,7 +120,7 @@ export const inventory = [
     10000000,
     "./assets/sprites_inv/Messi02.png"
   ),
-  createArrayBuildings(
+  new Building(
     12,
     "Lionel Scaloni",
     14000000000000,
@@ -131,16 +132,27 @@ export const inventory = [
 
 // UPGRADES
 
-export const upgrades = inventory.map((building, index) => {
-  return {
-    upgradeId: building.buildingId,
-    name: `Upgrade for ${building.name}`,
-    baseCost: Math.round(building.initialCost * (index + 1) * 10),
-    cost: Math.round(building.initialCost * (index + 1) * 10),
-    costImage: "./assets/click.me.png",
-    boost: 2,
-    quantity: 0,
-    image: `./assets/sprites_upgrades/${building.name}_upgrade.png`,
-    description: `Mejora para ${building.name} que duplica la cantidad de copas que genera.`,
-  };
-});
+class Upgrade {
+  constructor(upgradeId, name, initialCost, currentCost, image, description) {
+    this.upgradeId = upgradeId;
+    this.name = name;
+    this.initialCost = initialCost;
+    this.currentCost = currentCost;
+    this.costImage = "./assets/click.me.png";
+    this.boost = 2;
+    this.quantity = 0;
+    this.image = image;
+    this.description = description;
+  }
+}
+
+export const upgrades = [
+  new Upgrade(
+    1,
+    "Guantes de oro",
+    100,
+    100,
+    "../assets/sprites_upgrades/EmilianoMartinez_upgrade.png",
+    "Aumenta la producción de Emiliano Martinez en un 100%"
+  ),
+];
