@@ -12,36 +12,49 @@
   </head>
   <body>
     <main>
-      <div class="clickContainer">
-        <div id="clicker">
-          <h1 style="color: #cab925">
-            <span style="color: #62c6ff">Scalonet</span>a C<span
-              style="color: #62c6ff"
-              >licker</span
-            >
-          </h1>
-          <div class="style_info_cups">
-            <p>Tenes: <span id="showCounter">0</span> copas.</p>
-            <p>
-              Generas: <span id="showCounterPerSecond">0</span> copas por
-              segundo
-            </p>
+      <div class="LeftSide">
+        <span class="LeftSideUp">
+          <div class="ClickContainer">
+            <div id="id-clicker">
+              <h1 style="color: #cab925">
+                <span style="color: #62c6ff">Scalonet</span>a C<span
+                  style="color: #62c6ff"
+                  >licker</span
+                >
+              </h1>
+              <div class="StyleInfoCups">
+                <p>Tenes: <span id="id-showCounter">0</span> copas.</p>
+                <p>
+                  Generas: <span id="id-showCounterPerSecond">0</span> copas por
+                  segundo
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-        <span class="clickHere">
-          <img
-            src="./assets/click.me.png"
-            alt="Click aca para generar copas"
-            id="clickToIncrease"
-          />
+          <span class="ClickHere">
+            <img
+              src="./assets/click.me.png"
+              alt="Click aca para generar copas"
+              id="id-clickToIncrease"
+            />
+          </span>
         </span>
-        <span id="display_field">
-          <img src="./assets/display.png" alt="futbol_field" />
+        <span class="LeftSideBottom">
+          <div id="id-displayCarousel">
+            <img src="./assets/displays/8bit-messi.png" id="id-messi8Bit" />
+            <img src="./assets/displays/8bit-messi2.png" id="id-messi8Bit2" />
+            <img
+              src="./assets/displays/8bit-dibu-save.png"
+              id="id-dibuMartinez8bit"
+            />
+          </div>
+          <button id="id-restartBtn"><p>< Restart ></p></button>
         </span>
       </div>
-      <div id="buildingsContainer"></div>
-      <ul id="upgrade_list"></ul>
-      <button id="restartBtn">Restart</button>
+      <div class="RightSide">
+        <div id="id-buildingsContainer"></div>
+        <div class="DisplayHoverElements"></div>
+      </div>
     </main>
     <script src="./scripts/main.js" type="module"></script>
   </body>

@@ -5,18 +5,47 @@
     /* border: 2px solid red;  */
     font-family: 'SHPinscher-Regular', sans-serif;
 }
-
-body {
+html, body {
+    height: 100%;
     background-color: #62B18B;
 }
 
-#clicker {
+main {
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.LeftSide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.LeftSideBottom {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.RightSide {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#id-clicker {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.clickContainer #clicker h1 {
+.ClickContainer #id-clicker h1 {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
@@ -25,7 +54,7 @@ body {
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.clickHere {
+.ClickHere {
     display: flex;
     flex-direction: row;
     margin: 10px 0;
@@ -33,25 +62,27 @@ body {
 }
 
 
-.clickHere img {
-    width: 10%;
+.ClickHere img {
+    width: 216px;
+    height: 236px;
     cursor: pointer;
     transition: transform 0.2s;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
 }
 
-.clickHere img:hover {
+.ClickHere img:hover {
     transform: scale(1.1);
     transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
-.clickHere img:active {
+.ClickHere img:active {
     transform: scale(0.95);
     transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
 
-.style_info_cups {
-
+.StyleInfoCups {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
@@ -62,18 +93,23 @@ body {
     margin-bottom: 2rem;
 }
 
-#display_field {
-    position: absolute;
-    left: 0%;
-    right: 27.54%;
-    top: 5.69%;
-    bottom: 0%;
-    z-index: -1;
+/* Hide the images on page load */
+#id-displayCarousel img {
+    display: none;
+}
+
+#id-displayCarousel img:first-child {
+    display: block;
+}
+
+#id-displayCarousel img {
+    width: 666px;
+    height: 375px;
 }
 
 
-#buildingsContainer {
-    margin-top: 198px;
+#id-buildingsContainer {
+    margin-top: 25px;
     gap: 10px;
     display: flex;
     flex-direction: row;
@@ -83,26 +119,31 @@ body {
 
 }
 
-.buildingStyle .span_middle .span_middle_down {
+.BuildingStyle .SpanMiddle .SpanMiddleBottom {
     display: flex;
+    
 }
 
-.buildingStyle {
+
+.BuildingStyle {
     display: flex;
+    align-items: center;
+    justify-content: space-around;
     background-color: #458365;
     border: 2px solid black;
     width: 260px;
     height: 120px;
+    width: 29%;
 }
 
-.buildingStyle .span_left .sprite {
+.BuildingStyle .SpanLeft .Sprite {
     width: 69px;
     height: 108px;
     box-shadow: 4, 4, 10px, rgba(0, 0, 0, 0.25);
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-.buildingStyle .span_middle p {
+.BuildingStyle .SpanMiddle p {
     width: 136px;
     height: 50px;
     font-family: 'Inter';
@@ -114,13 +155,13 @@ body {
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.buildingStyle .imgCost {
+.BuildingStyle .ImgCost {
     width: 12px;
     height: 15px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
 }
 
-.buildingStyle .buildingCost {
+.BuildingStyle .BuildingCost {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
@@ -130,46 +171,43 @@ body {
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.buildingStyle .buildingCant {
+.BuildingStyle .BuildingCant {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
-    font-size: 70px;
+    font-size: 50px;
     line-height: 85px;
     color: rgba(0, 0, 0, 0.7);
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-    width: 2em;
+    width: 100px;
     overflow: hidden;
-    white-space: nowrap;      
+    white-space: nowrap;
+    position: relative;
+    left: 60px;
 }
+  
 
-#upgrade_list {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-#upgrade_list li {
-    width: 120px;
-    height: 140px;
-    mix-blend-mode: normal;
-border: 2px solid #836297;
-filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    margin: 5px;
+.DisplayHoverElements {
+    background-color: #000000;
+    margin: 10px 0;
+    width: 1080px;
+    height: 500px;
+    opacity: 0.2;
 }
 
 li img {
     width: 100%;
 }
 
-.tooltip_container {
+/* .tooltip_container {
     display: flex;
     flex-direction: column;
 }
 
-.tooltip_up, .tooltip_down {
-    display:flex;
+.tooltip_up,
+.tooltip_down {
+    display: flex;
     width: 200px;
     background-color: #649b89;
 
@@ -182,7 +220,7 @@ li img {
 .tooltip_up img,
 .tooltip_up p,
 .tooltip_down p {
-  margin: 0;
+    margin: 0;
 }
 
 .tooltip_up img {
@@ -193,19 +231,49 @@ li img {
 
 .upgrade-item:hover .hiden {
     display: block;
-    }
-    
-    
+} */
+
+
+/* Button */
+#id-restartBtn {
+    position: relative;
+    width: 113px;
+    height: 32px;
+    background: #0A0A0A;
+    border-radius: 12px;
+    top: 2rem;
+}
+
+#id-restartBtn > p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #FFFFFF;
+}
+
+#id-restartBtn:hover {
+    width: 115px;
+    height: 32px;
+}
 
 @keyframes bounce-in {
     0% {
-      opacity: 0;
-      transform: scale(.3);
+        opacity: 0;
+        transform: scale(.3);
     }
+
     50% {
-      opacity: 1;
-      transform: scale(1.05);
+        opacity: 1;
+        transform: scale(1.05);
     }
-    70% { transform: scale(.9); }
-    100% { transform: scale(1); }
-  }
+
+    70% {
+        transform: scale(.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

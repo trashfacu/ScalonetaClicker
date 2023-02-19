@@ -32,7 +32,7 @@ export function loadGame() {
         "show" + inventory[i].name + "Cant"
       ).innerText = `${numberFormat(prettify(aux.amount))}`;
     }
-    document.getElementById("showCounterPerSecond").innerText = numberFormat(
+    document.getElementById("id-showCounterPerSecond").innerText = numberFormat(
       prettify(objetoClick.cupPerSecond)
     );
   }
