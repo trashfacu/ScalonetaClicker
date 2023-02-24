@@ -25,37 +25,50 @@ setInterval(() => {
 }, 10000);
 
 //Creation of the building
+
 for (let data in inventory) {
   let divContainer = document.getElementById("id-buildingsContainer");
   const buildingHTML = `
-  <div class="BuildingStyle">
-  <span class="SpanLeft">
-    <img src="${inventory[data].image}" alt="${
+  <div class="InventoryContainer">
+    <div class="BuildingStyle" id="id-building">
+      <span class="SpanLeft">
+        <img src="${inventory[data].image}" alt="${
     inventory[data].name
   }" class="Sprite" />
-  </span>
-  <span class="SpanMiddle">
-    <span class="SpanMiddleUp">
-      <p>${inventory[data].name}</p>
-    </span>
-      <span class="SpanMiddleBottom">
-    <img src="${
-      inventory[data].costImage
-    }" alt="costBuilding_img" class="ImgCost" />
-    <p id="show${inventory[data].name}Cost" class="BuildingCost">${numberFormat(
+      </span>
+      <span class="SpanMiddle">
+        <span class="SpanMiddleUp">
+          <p>${inventory[data].name}</p>
+        </span>
+        <span class="SpanMiddleBottom">
+          <img src="${
+            inventory[data].costImage
+          }" alt="costBuilding_img" class="ImgCost" />
+          <p id="show${
+            inventory[data].name
+          }Cost" class="BuildingCost">${numberFormat(
     inventory[data].initialCost
   )}</p>
-    </span>
-  </span> 
-  <span class="SpanRight">
-    <p id="show${inventory[data].name}Cant" class="BuildingCant">${
+        </span>
+      </span> 
+      <span class="SpanRight">
+        <p id="show${inventory[data].name}Cant" class="BuildingCant">${
     inventory[data].amount
   }</p>
-    </span>
-    </div>
-`;
+  </div>
+  </span>
+  <button class="UpgradeBtn"><p>Upgrade</p><span><img src="${
+    inventory[data].costImage
+  }" class="ImgCost"><p id="UpgradeCurrentCost">${numberFormat(
+    prettify(upgrades[data].currentCost)
+  )}</p></span></button>
+</div>
+  `;
   divContainer.innerHTML += buildingHTML;
 }
+//Rendering the upgrade cost in the card
+
+//! FALTA RENDERIZAR EL VALOR INICIAL CON upgrades[index].currentCost
 
 //Remove draggin images
 document.getElementsByClassName("Sprite").draggable = false;
@@ -121,22 +134,22 @@ for (let i = 0; i < btnBuyBuilding.length; i++) {
   });
 }
 
-//
-
 function buyUpgrade(index) {
-  if (objetoClick.cup >= upgrades[index].cost && inventory[index].amount > 0) {
+  if (
+    objetoClick.cup >= upgrades[index].currentCost &&
+    inventory[index].amount > 0
+  ) {
     //Remove the cost of the upgrade and show the cups left
-    objetoClick.cup -= upgrades[index].cost;
+    objetoClick.cup -= upgrades[index].currentCost;
+
     document.getElementById("id-showCounter").innerText = objetoClick.cup;
     // Add 1 to the quantity of the upgrades cant and shows what upgrade it is.
     upgrades[index].quantity++;
-    document.getElementById(
-      `upgradeQty${index}`
-    ).innerText = `Upgrade n°: ${upgrades[index].quantity}`;
     // Matching the upgrade to their building
     const buildingIndex = inventory.findIndex(
-      (building) => building.buildingId === upgrades[index].upgradeId
+      (building) => building.id === upgrades[index].upgradeId
     );
+    //Incrase the boost
     inventory[buildingIndex].increase *= upgrades[index].boost;
     objetoClick.cupPerSecond += inventory[buildingIndex].increase;
     document.getElementById("id-showCounterPerSecond").innerText = prettify(
@@ -144,25 +157,31 @@ function buyUpgrade(index) {
     );
     // calculate the next cost for the building
     let nextCostUpgrade = nextCost(
-      upgrades[index].baseCost,
+      upgrades[index].initialCost,
       upgrades[index].quantity
     );
-    upgrades[index].initialCost = nextCostUpgrade;
-    // shows it in the card
-    document.getElementById(
-      `upgradeBoost${index}`
-    ).innerText = `Costo: ${numberFormat(prettify(nextCostUpgrade))}`;
-    //Shows it in the player card
-    document.getElementById(
-      `show${inventory[index].name}Boost`
-    ).innerText = `Genera: ${inventory[index].increase}`;
+    upgrades[index].currentCost = nextCostUpgrade;
+    document.getElementById("UpgradeCurrentCost").innerText = prettify(
+      upgrades[index].currentCost
+    );
     saveGame();
   } else {
     console.error("U cant buy this!");
   }
 }
 
-const btnBuyUpgrade = document.getElementsByClassName("BuyUpgrade");
+//! AGREGAR QUE CUANDO SE COMPRE EL UPGRADE DEL CKICK AUMENTE LA CANTIDAD DE COPAS CLICKEADAS.
+
+// FOR TEST
+// console.error(
+//   "U cant buy this!" +
+//     `These are the params...${upgrades[index].initialCost} ,
+//       ${upgrades[index].currentCost},
+//       ${upgrades[index].quantity},
+//       ${upgrades[index].upgradeId}
+//     }`
+
+const btnBuyUpgrade = document.getElementsByClassName("UpgradeBtn");
 for (let i = 0; i < btnBuyUpgrade.length; i++) {
   btnBuyUpgrade[i].addEventListener("click", function () {
     buyUpgrade(i);

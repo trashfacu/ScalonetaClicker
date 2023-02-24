@@ -1,203 +1,247 @@
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    /* border: 2px solid red;  */
-    font-family: 'SHPinscher-Regular', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* border: 2px solid red;  */
+  font-family: "SHPinscher-Regular", sans-serif;
 }
-html, body {
-    height: 100%;
-    background-color: #62B18B;
+html,
+body {
+  height: 100%;
+  background-color: #62b18b;
 }
 
 main {
-    height: 100%;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .LeftSide {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .LeftSideBottom {
-    display: flex;
-    flex-direction: column;
-
+  display: flex;
+  flex-direction: column;
 }
 
 .RightSide {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 #id-clicker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .ClickContainer #id-clicker h1 {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 50px;
-    line-height: 61px;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 50px;
+  line-height: 61px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .ClickHere {
-    display: flex;
-    flex-direction: row;
-    margin: 10px 0;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+  justify-content: center;
 }
 
-
 .ClickHere img {
-    width: 216px;
-    height: 236px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
+  width: 216px;
+  height: 236px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+    drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+    drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+    drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+    drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .ClickHere img:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  transform: scale(1.1);
+  transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
 .ClickHere img:active {
-    transform: scale(0.95);
-    transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  transform: scale(0.95);
+  transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
-
 .StyleInfoCups {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 30px;
-    color: #000000;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 30px;
+  color: #000000;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 /* Hide the images on page load */
 #id-displayCarousel img {
-    display: none;
+  display: none;
 }
 
 #id-displayCarousel img:first-child {
-    display: block;
+  display: block;
 }
 
 #id-displayCarousel img {
-    width: 666px;
-    height: 375px;
+  width: 666px;
+  height: 375px;
 }
 
-
 #id-buildingsContainer {
-    margin-top: 25px;
-    gap: 10px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-
+  margin-top: 30px;
+  gap: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .BuildingStyle .SpanMiddle .SpanMiddleBottom {
-    display: flex;
-    
+  display: flex;
 }
 
-
 .BuildingStyle {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #458365;
-    border: 2px solid black;
-    width: 260px;
-    height: 120px;
-    width: 29%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #458365;
+  border: 2px solid black;
+  height: 120px;
+  width: 100%;
 }
 
 .BuildingStyle .SpanLeft .Sprite {
-    width: 69px;
-    height: 108px;
-    box-shadow: 4, 4, 10px, rgba(0, 0, 0, 0.25);
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  width: 69px;
+  height: 108px;
+  box-shadow: 4, 4, 10px, rgba(0, 0, 0, 0.25);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .BuildingStyle .SpanMiddle p {
-    width: 136px;
-    height: 50px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 18px;
-    color: #000000;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 136px;
+  height: 50px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 18px;
+  color: #000000;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .BuildingStyle .ImgCost {
-    width: 12px;
-    height: 15px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+  width: 12px;
+  height: 15px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+    drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .BuildingStyle .BuildingCost {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 12px;
-    color: #6B2828;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #6b2828;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .BuildingStyle .BuildingCant {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 50px;
-    line-height: 85px;
-    color: rgba(0, 0, 0, 0.7);
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-    width: 100px;
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    left: 60px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 85px;
+  color: rgba(0, 0, 0, 0.7);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  left: 60px;
 }
-  
-
 
 .DisplayHoverElements {
-    background-color: #000000;
-    margin: 10px 0;
-    width: 1080px;
-    height: 500px;
-    opacity: 0.2;
+  background-color: #000000;
+  height: 40%;
+  width: 75%;
+  opacity: 0.2;
 }
 
 li img {
-    width: 100%;
+  width: 100%;
+}
+
+.UpgradeBtn {
+  display: flex;
+  justify-content: space-around;
+  align-items:center;
+  width: 320px;
+  height: 44px;
+
+  background: #0e4911;
+  box-shadow: inset 0px 0px 3px #ffffff;
+}
+
+.UpgradeBtn span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.UpgradeBtn p {
+  display: flex;
+  width: 124px;
+  height: 41px;
+
+  font-family: "Rajdhani";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 41px;
+
+  text-align: center;
+  letter-spacing: 0.16em;
+
+  color: #4cb04f;
+
+  text-shadow: 2px 2px 1px #000000;
+}
+
+.UpgradeBtn .ImgCost {
+  width: 30px;
+  height: 30px;
+}
+
+.InventoryContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
 }
 
 /* .tooltip_container {
@@ -233,47 +277,46 @@ li img {
     display: block;
 } */
 
-
 /* Button */
 #id-restartBtn {
-    position: relative;
-    width: 113px;
-    height: 32px;
-    background: #0A0A0A;
-    border-radius: 12px;
-    top: 2rem;
+  position: relative;
+  width: 113px;
+  height: 32px;
+  background: #0a0a0a;
+  border-radius: 12px;
+  top: 2rem;
 }
 
 #id-restartBtn > p {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
-    color: #FFFFFF;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #ffffff;
 }
 
 #id-restartBtn:hover {
-    width: 115px;
-    height: 32px;
+  width: 115px;
+  height: 32px;
 }
 
 @keyframes bounce-in {
-    0% {
-        opacity: 0;
-        transform: scale(.3);
-    }
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
 
-    50% {
-        opacity: 1;
-        transform: scale(1.05);
-    }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
 
-    70% {
-        transform: scale(.9);
-    }
+  70% {
+    transform: scale(0.9);
+  }
 
-    100% {
-        transform: scale(1);
-    }
+  100% {
+    transform: scale(1);
+  }
 }
